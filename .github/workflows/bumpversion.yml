@@ -1,0 +1,20 @@
+name: Bump-Version
+
+# Run this workflow every time a new commit pushed to your repository
+on: pull_request
+
+jobs:
+  # Set the job key. The key is displayed as the job name
+  # when a job name is not provided
+  bump-version:
+    # Name the Job
+    name: Bump version at destination
+    # Set the type of machine to run on
+    runs-on: ubuntu-latest
+
+    steps:
+      # Push to remote repo
+      - name: send repository dispatch
+        if: github.action == 'closed' && github.pull_request.merged == 'true'
+        run: |
+          curl -XPOST -u "${{secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/kylem038/test-actions-destination/dispatches --data '{"event_type": "bump_version"}'
