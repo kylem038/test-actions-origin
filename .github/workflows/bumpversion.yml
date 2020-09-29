@@ -17,4 +17,4 @@ jobs:
       - name: send repository dispatch
         if: github.action == 'closed' && github.pull_request.merged == 'true'
         run: |
-          curl -XPOST -u "${{secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/kylem038/test-actions-destination/dispatches --data '{"event_type": "bump_version"}'
+          curl -XPOST -u "${{secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" -H "Accept: application/vnd.github.v3+json" -H "Content-Type: application/json" https://api.github.com/repos/kylem038/test-actions-destination/actions/workflows/bumpversion.yaml/dispatches -d '{"ref": "ref"}'
