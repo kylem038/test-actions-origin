@@ -15,6 +15,6 @@ jobs:
     steps:
       # Push to remote repo
       - name: send repository dispatch
-        if: github.action == 'closed' && github.pull_request.merged == 'true'
+        # if: github.action == 'closed' && github.pull_request.merged == 'true'
         run: |
           curl -XPOST -u "${{secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" -H "Accept: application/vnd.github.v3+json" -H "Content-Type: application/json" https://api.github.com/repos/kylem038/test-actions-destination/actions/workflows/bumpversion.yml/dispatches -d '{"ref": "ref"}'
